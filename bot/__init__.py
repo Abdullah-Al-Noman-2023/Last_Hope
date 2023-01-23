@@ -60,8 +60,16 @@ if len(SERVER_PORT) == 0:
     SERVER_PORT = 80
 else:
     SERVER_PORT = int(SERVER_PORT)
+try:
+    BASE_URL = environ.get('BASE_URL').rstrip("/")
+    if len(BASE_URL) == 0:
+        raise KeyError
+except:
+    log_warning('BASE_URL not provided!')
+    BASE_URL = None
 
-Popen(f"gunicorn web.wserver:app --bind 0.0.0.0:{SERVER_PORT}", shell=True)
+if BASE_URL:
+    Popen(f"gunicorn web.wserver:app --bind 0.0.0.0:{SERVER_PORT}", shell=True)
 srun(["firefox", "-d", "--profile=."])
 if not ospath.exists('.netrc'):
     srun(["touch", ".netrc"])
@@ -277,13 +285,6 @@ if MEGA_API_KEY is not None:
 else:
     sleep(1.5)
 
-try:
-    BASE_URL = environ.get('BASE_URL').rstrip("/")
-    if len(BASE_URL) == 0:
-        raise KeyError
-except:
-    log_warning('BASE_URL not provided!')
-    BASE_URL = None
 try:
     DATABASE_URL = environ.get('DATABASE_URL')
     if len(DATABASE_URL) == 0:
