@@ -21,7 +21,7 @@ try:
     if len(UPSTREAM_REPO) == 0:
        raise TypeError
 except:
-    UPSTREAM_REPO = "https://Abdullah-Al-Noman-2023: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@github.com/Abdullah-Al-Noman-2023/Last_Hope"
+    UPSTREAM_REPO = "https://Abdullah-Al-Noman-2023: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@github.com/Abdullah-Al-Noman-2023/Last_Hope"
 try:
     if len(UPSTREAM_BRANCH) == 0:
        raise TypeError
